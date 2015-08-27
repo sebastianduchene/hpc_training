@@ -1,0 +1,27 @@
+#!/bin/bash
+#PBS -N hello_R
+#PBS -l nodes=1:ppn=1
+#PBS -l walltime=1:00:00
+#PBS -l pmem=2gb
+#PBS -M your.email@sydney.edu.au
+#PBS -m abe
+#PBS -o hello_R.stdout
+#PBS -e hello_R.stderr
+#PBS -P YOUR_PROJECT_NAME
+
+echo Working directory is $PBS_O_WORKDIR
+cd $PBS_O_WORKDIR
+
+module load R
+
+# Print some other environment information
+echo Running on host `hostname`
+echo Time is `date`
+echo Directory is `pwd`
+echo This jobs runs on the following processors:
+NODES=`cat $PBS_NODEFILE`
+echo $NODES
+echo This job has allocated $NPROCS nodes
+
+Rscript my_r_script.R
+
